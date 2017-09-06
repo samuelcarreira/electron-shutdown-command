@@ -6,3 +6,11 @@ Quickly shutdown, reboot, log off, halt, your computer using the native shutdown
 const shutdown = require('electron-shutdown-command');
 
 shutdown.shutdown();
+
+
+## Methods
+
+shutdown(options)
+
+reboot()
+
