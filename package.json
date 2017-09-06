@@ -1,0 +1,27 @@
+{
+  "name": "electron-shutdown-command",
+  "version": "0.0.2",
+  "description": "Quickly shutdown, reboot, log off, halt, your computer using the native shutdown command easily from an electron app. Cross platform (macOS; Windows and Linux)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelcarreira/electron-shutdown-command.git"
+  },
+  "keywords": [
+    "shutdown",
+    "poweroff",
+    "reboot",
+    "halt",
+    "restart",
+    "electron"
+  ],
+  "author": "Samuel Carreira <samuelcarreira@outlook.com> (http://www.samuelcarreira.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samuelcarreira/electron-shutdown-command/issues"
+  },
+  "homepage": "https://github.com/samuelcarreira/electron-shutdown-command#readme"
+}
