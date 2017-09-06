@@ -3,8 +3,7 @@ electron-shutdown-command
 
 Quickly shutdown, reboot, log off, halt, your computer using the native shutdown command easily from an electron app. Cross platform (macOS; Windows and Linux)
 
-Installation
-------------
+## Installation
 
     npm install --save electron-shutdown-command
 
@@ -19,31 +18,34 @@ shutdown.shutdown();
 or
 
 ```
-shutdown.shutdown({force: true});
+shutdown.shutdown({force: true}); // to force all running windows to close
+```
+or
+```
+shutdown.reboot();
 ```
 
 ## Methods
 
-# shutdown([options])
+### shutdown([options])
 shutdown / power-off your machine
 
 - `options` `<Object>`
   - `force` `<boolean>`: Forces running applications to close, default is `false`. *Windows only*
 
-# reboot()
+### reboot()
 Reboot / restarts your machine
 
-# logoff()
+### logoff()
 Ends current session *Windows only*
 
-# sleep()
+### sleep()
 Enters sleep mode *macOS only*
 
-# hibernate()
+### hibernate()
 Hibernate *Windows only*
 
-License
--------
+## License
 
 Licensed under MIT
 
