@@ -30,7 +30,7 @@ function shutdown(options = {}) {
 
 function hibernate() {
 	if (process.platform === 'win32') {
-			executeCmd('shutdown -h -t 0');
+			executeCmd('shutdown -h');
 	} else {
 		throw new Error('Unknown or unsupported OS (only Windows is supported)!');
 	}
