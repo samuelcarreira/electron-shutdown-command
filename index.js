@@ -2,7 +2,7 @@
 
 const cp = require('child_process');
 
-// documentation:
+// learn more - documentation:
 // windows: https://technet.microsoft.com/en-us/library/bb491003.aspx?f=255&MSPPError=-2147217396
 // macos: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/shutdown.8.html 
 // linux: https://www.computerhope.com/unix/ushutdow.htm
