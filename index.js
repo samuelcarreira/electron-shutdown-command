@@ -1,6 +1,8 @@
 'use strict';
 
 const cp = require('child_process');
+const electron = require('electron');
+const app = electron.app;
 
 // learn more - documentation:
 // windows: https://technet.microsoft.com/en-us/library/bb491003.aspx?f=255&MSPPError=-2147217396
@@ -13,83 +15,201 @@ const cp = require('child_process');
  * @param {object} options {force: boolean} 
  */
 function shutdown(options = {}) {
-	if (process.platform === 'linux') {
-		executeCmd('sudo shutdown -h now');
-	} else if (process.platform === 'darwin') {
-		executeCmd('sudo shutdown -h now');
-	} else if (process.platform === 'win32') {
-		if (options.force) {
-			executeCmd('shutdown -s -f -t 0');
-		} else {
-			executeCmd('shutdown -s -t 0');
-		}
-	} else {
-		throw new Error('Unknown or unsupported OS!');
-	}
-}
+    if (process.platform !== 'linux' &&
+        process.platform !== 'darwin' &&
+        process.platform !== 'win32') {
+        throw new Error('Unknown or unsupported OS!');
+    }
 
-function hibernate() {
-	if (process.platform === 'win32') {
-			executeCmd('shutdown -h');
-	} else {
-		throw new Error('Unknown or unsupported OS (only Windows is supported)!');
-	}
-}
+    let cmdarguments = ['shutdown'];
 
-function logoff() {
-	if (process.platform === 'win32') {
-			executeCmd('shutdown -l');
-	} else {
-		throw new Error('Unknown or unsupported OS (only Windows is supported)!');
-	}
-}
+    if (process.platform === 'linux' || process.platform === 'darwin') {
+        if (options.sudo) {
+            cmdarguments.unshift('sudo');
+        }
 
-function sleep() {
-	if (process.platform === 'darwin') {
-		executeCmd('sudo shutdown -s now');
-	} else {
-		throw new Error('Unknown or unsupported OS (only macOS is supported)!');
-	}
-}
+        cmdarguments.push('-h'); // halt
+    }
 
-function reboot(options = {}) {
-	if (process.platform === 'linux') {
-		executeCmd('sudo shutdown -r now');
-	} else if (process.platform === 'darwin') {
-		executeCmd('sudo shutdown -r now');
-	} else if (process.platform === 'win32') {
-		if (options.force) {
-			executeCmd('shutdown -r -f -t 0');
-		} else {
-			executeCmd('shutdown -r -t 0');
-		}
-	} else {
-		throw new Error('Unknown or unsupported OS!');
-	}
+    if (process.platform === 'win32') {
+        cmdarguments.push('-s'); // shutdown
+
+        if (options.force) {
+            cmdarguments.push('-f');
+        }      
+    }
+
+    cmdarguments.push(setTimer(options.timerseconds));
+
+    executeCmd(cmdarguments, options.debug, options.quitapp);
 }
 
 /**
- * Execute command
- * @param {string} cmd 
+ * Hibernate (Windows only)
+ * @param {Object} options 
  */
-function executeCmd(cmd) {
-	if (typeof cmd !== 'string') {
-		throw new Error('Empty or invalid argument!');
-	}
+function hibernate(options = {}) {
+    if (process.platform !== 'win32') {
+        throw new Error('Unsupported OS (only Windows is supported)!');
+    }
 
-	cp.exec(cmd, (err, stdout, stderr) => {
-		if (err) {
-			console.error(err);
-			return;
-		}
-		//console.log(stdout);
-	});
+    let cmdarguments = ['shutdown'];
+
+    cmdarguments.push('-h'); // hibernate
+
+    if (options.force) {
+        cmdarguments.push('-f');
+    }      
+    
+    cmdarguments.push(setTimer(options.timerseconds));
+ 
+    executeCmd(cmdarguments, options.debug, options.quitapp);
+}
+
+/**
+ * Ends current session (Windows only)
+ * @param {object} options 
+ */
+function logoff(options = {}) {
+    if (process.platform !== 'win32') {
+        throw new Error('Unsupported OS (only Windows is supported)!');
+    }
+
+    let cmdarguments = ['shutdown'];
+
+    cmdarguments.push('-l'); // logoff    
+    
+    cmdarguments.push(setTimer(options.timerseconds));
+
+    executeCmd(cmdarguments, options.debug, options.quitapp);
+}
+
+/**
+ * Enters sleep mode (macOS Only)
+ */
+function sleep(options = {}) {
+    if (process.platform !== 'darwin') {
+        throw new Error('Unsupported OS (only macOS is supported)!');
+    }
+
+    let cmdarguments = ['shutdown'];
+    
+    cmdarguments.push('-s'); // sleep
+    
+    cmdarguments.push(setTimer(options.timerseconds));
+
+    executeCmd(cmdarguments, options.debug, options.quitapp);
+}
+
+/**
+ * Shutdown / power-off your machine
+ * @param {Object} options 
+ */
+function reboot(options = {}) {
+    if (process.platform !== 'linux' &&
+        process.platform !== 'darwin' &&
+        process.platform !== 'win32') {
+        throw new Error('Unknown or unsupported OS!');
+    }
+
+    let cmdarguments = ['shutdown'];
+
+    cmdarguments.push('-r'); // reboot
+
+    if (process.platform === 'linux' || process.platform === 'darwin') {
+        if (options.sudo) {
+            cmdarguments.unshift('sudo');
+        }
+    }
+
+    if (process.platform === 'win32') {
+        if (options.force) {
+            cmdarguments.push('-f');
+        }      
+    }
+
+    cmdarguments.push(setTimer(options.timerseconds));
+
+    executeCmd(cmdarguments, options.debug, options.quitapp);
+}
+
+/**
+ * set current time argument
+ * @param {Number} timervalue value in seconds to delay, false to execute now
+ */
+function setTimer(timervalue) {
+    let cmdarguments = [];
+    
+    if (process.platform === 'linux' ) {
+        if (timervalue) {
+            cmdarguments.push(timervalue.toString());
+        } else {
+            cmdarguments.push('now');
+        }
+    }
+
+    if (process.platform === 'darwin') {
+        if (timervalue) {
+			let timeinminutes = Math.round(Number(timervalue) / 60);
+			if (timeinminutes === 0) {
+				timeinminutes = 1; // min 1 minute
+			}
+            cmdarguments.push('-t ' + timeinminutes.toString());
+        } else {
+            cmdarguments.push('now');
+        }
+    }
+
+    if (process.platform === 'win32') {
+        if (timervalue) {
+            cmdarguments.push('-t ' + timervalue.toString());
+        } else {
+            cmdarguments.push('-t 0'); // set to 0 because default is 20 seconds
+        }
+    }
+
+    return cmdarguments;
+} 
+
+
+/**
+ * Execute command
+ * @param {Object} cmd array of commands 
+ * @param {Boolean} debug show console results, not execute the command
+ * @param {Boolean} quitapp quit app after send the command
+ */
+function executeCmd(cmd, debug, quitapp) {
+    if (typeof cmd !== 'object') {
+        throw new Error('Empty or invalid argument list!');
+    }
+
+    let finalcmd = cmd.join(' ');
+
+    if (debug) {
+        // debug mode, print to console
+        console.log(`Debug shutdown command: ${finalcmd}`)
+        if (quitapp) {
+            console.log("Now exit app...");
+            app.exit(0);
+        }
+    } else {
+        cp.exec(cmd, (err, stdout, stderr) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            //console.log(stdout);
+            if (quitapp) {
+                app.exit(0);
+            }
+        });
+    }
 }
 
 module.exports = {
-	shutdown: shutdown,
-	reboot: reboot,
-	hibernate: hibernate,
-	logoff: logoff,
-	sleep: sleep
+    shutdown: shutdown,
+    reboot: reboot,
+    hibernate: hibernate,
+    logoff: logoff,
+    sleep: sleep
 };
