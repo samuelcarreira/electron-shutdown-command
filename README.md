@@ -12,7 +12,7 @@ Quickly shutdown, reboot, log off, halt, restarts, etc. your computer using the 
 ```
 const shutdown = require('electron-shutdown-command');
 
-shutdown.shutdown();
+shutdown.shutdown(); // simple system shutdown with default options
 ```
 
 or
@@ -53,12 +53,15 @@ Enters sleep mode *macOS only*
 ### hibernate([options])
 Hibernate *Windows only*
 
+### abort([options])
+Aborts or cancels a pending shutdown (this does not apply to "shutdown now", which does not wait before shutting down) *Windows and Linux only*
+
 ## Options
 - `options` `<Object>`
   - `force` `<boolean>`: Forces running applications to close, default is `false` *Windows only*
-  - `timerseconds` `<Number>`: Sets the timer (value in seconds). Note in *macOS* the minimum is 60 seconds/1 minute
+  - `timerseconds` `<Number>`: Sets the timer (value in seconds). Notes: in *macOS* the minimum is 1 minute. The logoff, sleep and hibernate option cannot be scheduled, it executes immediately
   - `sudo` `<boolean>`: Run as sudo, default is `false`. *macOS and Linux*
-  - `debug` `<boolean>`: Show shutdown command on console **Not runs it**, default is `false`
+  - `debug` `<boolean>`: Shows shutdown command on console for debugging purposes **NOTE: It does not run it**, default is `false`
   - `quitapp` `<boolean>`: Quits your app after the shutdown command, default is `false`
 
 ## License

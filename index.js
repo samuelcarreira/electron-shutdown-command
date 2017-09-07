@@ -55,13 +55,7 @@ function hibernate(options = {}) {
 
     let cmdarguments = ['shutdown'];
 
-    cmdarguments.push('-h'); // hibernate
-
-    if (options.force) {
-        cmdarguments.push('-f');
-    }      
-    
-    cmdarguments.push(setTimer(options.timerseconds));
+    cmdarguments.push('-h'); // hibernate    
  
     executeCmd(cmdarguments, options.debug, options.quitapp);
 }
@@ -78,8 +72,6 @@ function logoff(options = {}) {
     let cmdarguments = ['shutdown'];
 
     cmdarguments.push('-l'); // logoff    
-    
-    cmdarguments.push(setTimer(options.timerseconds));
 
     executeCmd(cmdarguments, options.debug, options.quitapp);
 }
@@ -96,8 +88,29 @@ function sleep(options = {}) {
     
     cmdarguments.push('-s'); // sleep
     
-    cmdarguments.push(setTimer(options.timerseconds));
+    //cmdarguments.push(setTimer(options.timerseconds));
 
+    executeCmd(cmdarguments, options.debug, options.quitapp);
+}
+
+/**
+ * Aborts current scheduled shutdown
+ * @param {Object} options 
+ */
+function abort(options = {}) {
+    if (process.platform !== 'win32' || process.platform !== 'linux') {
+        throw new Error('Unsupported OS (only Windows and Linux are supported)!');
+    }
+
+    let cmdarguments = ['shutdown'];
+    
+    if (process.platform === 'win32') {
+        cmdarguments.push('-a'); // abort
+    } else {
+        // linux
+        cmdarguments.push('-c'); // cancel a pending shutdown
+    }
+    
     executeCmd(cmdarguments, options.debug, options.quitapp);
 }
 
