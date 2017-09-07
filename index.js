@@ -193,7 +193,7 @@ function executeCmd(cmd, debug, quitapp) {
             app.exit(0);
         }
     } else {
-        cp.exec(cmd, (err, stdout, stderr) => {
+        cp.exec(finalcmd, (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
                 return;
