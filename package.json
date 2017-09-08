@@ -1,6 +1,6 @@
 {
   "name": "electron-shutdown-command",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Quickly shutdown, reboot, log off, halt, your computer using the native shutdown command easily from an electron app. Cross platform (macOS; Windows and Linux)",
   "main": "index.js",
   "scripts": {

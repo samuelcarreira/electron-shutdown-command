@@ -12,7 +12,7 @@ const app = electron.app;
 /**
  * Shutdown command
  * 
- * @param {object} options {force: boolean} 
+ * @param {object} options 
  */
 function shutdown(options = {}) {
     if (process.platform !== 'linux' &&
@@ -224,5 +224,6 @@ module.exports = {
     reboot: reboot,
     hibernate: hibernate,
     logoff: logoff,
-    sleep: sleep
+    sleep: sleep,
+    abort: abort
 };
