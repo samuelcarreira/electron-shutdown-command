@@ -98,7 +98,7 @@ function sleep(options = {}) {
  * @param {Object} options 
  */
 function abort(options = {}) {
-    if (process.platform !== 'win32' || process.platform !== 'linux') {
+    if (process.platform !== 'win32' && process.platform !== 'linux') {
         throw new Error('Unsupported OS (only Windows and Linux are supported)!');
     }
 

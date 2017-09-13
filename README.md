@@ -36,6 +36,8 @@ or
 shutdown.logoff();
 ```
 
+**Warning:** I didn't have enough time to fully test this module on macOS and Linux. You may need to run the app as sudo/Administrator rights to allow to run the shutdown command. If there is enough interest on some specific platform I can try to improve this module (I currently use this module on Windows 10).
+
 ## Methods
 
 ### shutdown([options])
