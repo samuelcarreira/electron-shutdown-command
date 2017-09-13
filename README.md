@@ -3,6 +3,8 @@ electron-shutdown-command
 
 Quickly shutdown, reboot, log off, halt, restarts, etc. your computer using the native shutdown command easily from an electron app. Cross platform (macOS; Windows and Linux)
 
+**Warning:** I didn't have enough time to fully test this module on macOS and Linux. You may need to run the app as sudo/Administrator rights to allow to run the shutdown command. If there is enough interest on some specific platform I can try to improve this module (I currently use this module on Windows 10).
+
 ## Installation
 
     npm install --save electron-shutdown-command
@@ -35,6 +37,7 @@ or
 // Warning: windows only
 shutdown.logoff();
 ```
+
 
 ## Methods
 
