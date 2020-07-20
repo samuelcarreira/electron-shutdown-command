@@ -1,10 +1,16 @@
 {
   "name": "electron-shutdown-command",
-  "version": "0.0.7",
-  "description": "Quickly shutdown, reboot, log off, halt, your computer using the native shutdown command easily from an electron app. Cross platform (macOS; Windows and Linux)",
-  "main": "index.js",
+  "productName": "Electron Shutdown Command",
+  "version": "2.0.0",
+  "description": "Quickly shutdown, reboot, log off, halt, your computer using the native shutdown command easily from an electron app. Cross platform (Windows; macOS and Linux)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "publish": "npm publish",
+    "lint": "xo"
   },
   "repository": {
     "type": "git",
@@ -23,5 +29,13 @@
   "bugs": {
     "url": "https://github.com/samuelcarreira/electron-shutdown-command/issues"
   },
-  "homepage": "https://github.com/samuelcarreira/electron-shutdown-command#readme"
+  "homepage": "https://github.com/samuelcarreira/electron-shutdown-command#readme",
+  "devDependencies": {
+    "electron": "^9.1.0",
+    "typescript": "^3.9.7",
+    "xo": "^0.32.1"
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }

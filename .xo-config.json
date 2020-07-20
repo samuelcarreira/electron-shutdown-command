@@ -1,0 +1,17 @@
+{
+  "extends": "xo-typescript",
+  "extensions": [
+    "ts"
+  ],
+  "ignores": [
+    "sample-app/*"
+  ],
+  "space": true,
+  "rules": {
+    "no-dynamic-delete": 0,
+    "expiring-todo-comments": 0,
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-dynamic-delete": "off",
+    "capitalized-comments": 1
+  }
+}
