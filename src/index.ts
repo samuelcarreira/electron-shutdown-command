@@ -74,7 +74,7 @@ function applyDefaults(options: ElectronShutdownCommandUserOptions): ElectronShu
  *
  * @param {object} options
  */
-export function shutdown(options: ElectronShutdownCommandUserOptions) {
+export function shutdown(options: ElectronShutdownCommandUserOptions = {}) {
   const validatedOptions: ElectronShutdownCommandOptions = applyDefaults(options);
 
   const cmdarguments = ['shutdown'];
@@ -104,7 +104,7 @@ export function shutdown(options: ElectronShutdownCommandUserOptions) {
  * Hibernate (Windows only)
  * @param {Object} options
  */
-export function hibernate(options: ElectronShutdownCommandUserOptions) {
+export function hibernate(options: ElectronShutdownCommandUserOptions = {}) {
   if (process.platform !== 'win32') {
     throw new Error('Unsupported OS (only Windows is supported)!');
   }
@@ -122,7 +122,7 @@ export function hibernate(options: ElectronShutdownCommandUserOptions) {
  * Ends current session (Windows only)
  * @param {object} options
  */
-export function logoff(options: ElectronShutdownCommandUserOptions) {
+export function logoff(options: ElectronShutdownCommandUserOptions = {}) {
   if (process.platform !== 'win32') {
     throw new Error('Unsupported OS (only Windows is supported)!');
   }
@@ -139,7 +139,7 @@ export function logoff(options: ElectronShutdownCommandUserOptions) {
 /**
  * Enters sleep mode (macOS Only)
  */
-export function sleep(options: ElectronShutdownCommandUserOptions) {
+export function sleep(options: ElectronShutdownCommandUserOptions = {}) {
   if (process.platform !== 'darwin') {
     throw new Error('Unsupported OS (only macOS is supported)!');
   }
@@ -159,7 +159,7 @@ export function sleep(options: ElectronShutdownCommandUserOptions) {
  * Aborts current scheduled shutdown
  * @param {Object} options
  */
-export function abort(options: ElectronShutdownCommandUserOptions) {
+export function abort(options: ElectronShutdownCommandUserOptions = {}) {
   if (process.platform !== 'win32' && process.platform !== 'linux') {
     throw new Error('Unsupported OS (only Windows and Linux are supported)!');
   }
@@ -182,7 +182,7 @@ export function abort(options: ElectronShutdownCommandUserOptions) {
  * Shutdown / power-off your machine
  * @param {Object} options
  */
-export function reboot(options: ElectronShutdownCommandUserOptions) {
+export function reboot(options: ElectronShutdownCommandUserOptions = {}) {
   const validatedOptions: ElectronShutdownCommandOptions = applyDefaults(options);
 
   const cmdarguments = ['shutdown'];

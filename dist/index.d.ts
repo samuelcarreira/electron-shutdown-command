@@ -1,6 +1,10 @@
 /*!
  * Electron Shutdown Command
  *
+ * Learn more - documentation:
+ * windows: https://technet.microsoft.com/en-us/library/bb491003.aspx?f=255&MSPPError=-2147217396
+ * macos: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/shutdown.8.html
+ * linux: https://www.computerhope.com/unix/ushutdow.htm
  *
  * Licensed under MIT
  * Copyright (c) 2020 [Samuel Carreira]
@@ -45,28 +49,28 @@ export interface ElectronShutdownCommandUserOptions {
  *
  * @param {object} options
  */
-export declare function shutdown(options: ElectronShutdownCommandUserOptions): void;
+export declare function shutdown(options?: ElectronShutdownCommandUserOptions): void;
 /**
  * Hibernate (Windows only)
  * @param {Object} options
  */
-export declare function hibernate(options: ElectronShutdownCommandUserOptions): void;
+export declare function hibernate(options?: ElectronShutdownCommandUserOptions): void;
 /**
  * Ends current session (Windows only)
  * @param {object} options
  */
-export declare function logoff(options: ElectronShutdownCommandUserOptions): void;
+export declare function logoff(options?: ElectronShutdownCommandUserOptions): void;
 /**
  * Enters sleep mode (macOS Only)
  */
-export declare function sleep(options: ElectronShutdownCommandUserOptions): void;
+export declare function sleep(options?: ElectronShutdownCommandUserOptions): void;
 /**
  * Aborts current scheduled shutdown
  * @param {Object} options
  */
-export declare function abort(options: ElectronShutdownCommandUserOptions): void;
+export declare function abort(options?: ElectronShutdownCommandUserOptions): void;
 /**
  * Shutdown / power-off your machine
  * @param {Object} options
  */
-export declare function reboot(options: ElectronShutdownCommandUserOptions): void;
+export declare function reboot(options?: ElectronShutdownCommandUserOptions): void;

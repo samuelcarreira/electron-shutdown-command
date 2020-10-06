@@ -2,6 +2,10 @@
 /*!
  * Electron Shutdown Command
  *
+ * Learn more - documentation:
+ * windows: https://technet.microsoft.com/en-us/library/bb491003.aspx?f=255&MSPPError=-2147217396
+ * macos: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/shutdown.8.html
+ * linux: https://www.computerhope.com/unix/ushutdow.htm
  *
  * Licensed under MIT
  * Copyright (c) 2020 [Samuel Carreira]
@@ -25,7 +29,7 @@ function applyDefaults(options) {
  *
  * @param {object} options
  */
-function shutdown(options) {
+function shutdown(options = {}) {
     const validatedOptions = applyDefaults(options);
     const cmdarguments = ['shutdown'];
     if (process.platform === 'linux' || process.platform === 'darwin') {
@@ -48,7 +52,7 @@ exports.shutdown = shutdown;
  * Hibernate (Windows only)
  * @param {Object} options
  */
-function hibernate(options) {
+function hibernate(options = {}) {
     if (process.platform !== 'win32') {
         throw new Error('Unsupported OS (only Windows is supported)!');
     }
@@ -62,7 +66,7 @@ exports.hibernate = hibernate;
  * Ends current session (Windows only)
  * @param {object} options
  */
-function logoff(options) {
+function logoff(options = {}) {
     if (process.platform !== 'win32') {
         throw new Error('Unsupported OS (only Windows is supported)!');
     }
@@ -75,7 +79,7 @@ exports.logoff = logoff;
 /**
  * Enters sleep mode (macOS Only)
  */
-function sleep(options) {
+function sleep(options = {}) {
     if (process.platform !== 'darwin') {
         throw new Error('Unsupported OS (only macOS is supported)!');
     }
@@ -90,7 +94,7 @@ exports.sleep = sleep;
  * Aborts current scheduled shutdown
  * @param {Object} options
  */
-function abort(options) {
+function abort(options = {}) {
     if (process.platform !== 'win32' && process.platform !== 'linux') {
         throw new Error('Unsupported OS (only Windows and Linux are supported)!');
     }
@@ -110,7 +114,7 @@ exports.abort = abort;
  * Shutdown / power-off your machine
  * @param {Object} options
  */
-function reboot(options) {
+function reboot(options = {}) {
     const validatedOptions = applyDefaults(options);
     const cmdarguments = ['shutdown'];
     cmdarguments.push('-r'); // Reboot
